@@ -66,5 +66,7 @@ Plus I'm using SSL certificates, so you will need to change those to make it wor
 Billing for your server(s) will continue until you destroy the project. To terminate all instances, in Terminal. run `terraform destroy`.
 
 ## To do:
-- allow SSH in the server from my local IP address
+~~- allow SSH in the server from my local IP address~~
+
+~~- auto-deploy SSl certificates on Apache~~
 - setup a load balancer with 1 micro instance running and auto resize if needed
