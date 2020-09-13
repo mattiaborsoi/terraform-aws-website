@@ -1,0 +1,15 @@
+#
+#
+#add all content of terraforn.tfvars once completed and delete personal data
+#
+#
+region = "eu-west-2"
+shared_credentials_file = "~/.aws/credentials-terraform"
+ssh_private_key_file = "~/.aws/terraform.pem"
+ec2_ami =  "ami-0287acb18b6d8efff" #Ubuntu Server 18.04 LTS (HVM), SSD, in eu-west-2
+ec2_instance_type = "t3.micro"
+cloudflareZone = "yourcloudflarezoneIDgoesHere" #check Cloudflare API help for obtaining this
+cloudflareDNSRecord = "yourcloudflareDNSRecordIDgoesHere"
+X-Auth-Email = "your@email.com" #your cloudflare's account email
+X-Auth-Key = "yourCloudFlareAuthKeyHere" #here https://support.cloudflare.com/hc/en-us/articles/200167836-Managing-API-Tokens-and-Keys
+CloudFlareDNSDomain = "borsoi.co.uk" #replace with your domain
