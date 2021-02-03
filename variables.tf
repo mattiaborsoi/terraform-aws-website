@@ -9,11 +9,6 @@ variable "allowed_availability_zone_id" {
   default = ["a", "b","c"]
 }
 
-variable "shared_credentials_file" {
-  description = "Where the AWS access and secret keys are stored"
-  type = string
-}
-
 data "external" "myipaddr" {
 program = ["bash", "-c", "curl -s 'https://api.ipify.org?format=json'"]
 }
