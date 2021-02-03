@@ -3,7 +3,6 @@ terraform {
 }
 provider "aws" {
   region = var.region
-  shared_credentials_file = var.shared_credentials_file
 }
 terraform {
   backend "s3" {
@@ -26,7 +25,7 @@ resource "aws_dynamodb_table" "dynamodb-terraform-state-lock" {
 }
 
 locals {
-  my_public_ip = "${data.external.myipaddr.result.ip}"
+  my_public_ip = "data.external.myipaddr.result.ip"
 }
 
 resource  "random_integer" "az_id" {
