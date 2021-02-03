@@ -4,25 +4,6 @@ terraform {
 provider "aws" {
   region = var.region
 }
-terraform {
-  backend "s3" {
-    bucket = "terraform-website-state" #change this to your bucket name if different
-    key = "terraform/terraform.tfstate"
-    region  = "eu-west-2" #change this to your region. we can't use variables here so it needs to be manually changed to your region if different
-    dynamodb_table = "terraform-website-state-lock-dynamo"
-    encrypt = true
-  }
-}
-resource "aws_dynamodb_table" "dynamodb-terraform-state-lock" {
-  name = "terraform-website-state-lock-dynamo"
-  hash_key = "LockID"
-  read_capacity = 20
-  write_capacity = 20
-  attribute {
-    name = "LockID"
-    type = "S"
-  }
-}
 
 locals {
   my_public_ip = "data.external.myipaddr.result.ip"
@@ -36,7 +17,7 @@ locals {
   availability_zone = "${var.region}${element(var.allowed_availability_zone_id, random_integer.az_id.result)}"
 }
 
-resource "aws_spot_instance_request" "ec2_instance" {
+resource "aws_instance" "ec2_instance" {
   ami                    = var.ec2_ami
   instance_type          = var.ec2_instance_type
   availability_zone = local.availability_zone
@@ -49,10 +30,6 @@ resource "aws_spot_instance_request" "ec2_instance" {
     CloudFlareDNSDomain = var.CloudFlareDNSDomain
   })
   key_name      = "terraform"
-
-  # Spot configuration
-    spot_type = "one-time"
-    wait_for_fulfillment = true
   
   tags = {
     Name = "terraform-web-server"
